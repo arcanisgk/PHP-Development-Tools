@@ -1,3 +1,0 @@
-<IfModule mod_php7.c>
-    php_value auto_prepend_file "D:\Desarrollos\Personales\Web\PHP-Development-Tools/src/BugCatcher.php"
-</IfModule>
