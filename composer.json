@@ -1,0 +1,24 @@
+{
+  "name": "arcanisgk/php-development-tool",
+  "type": "library",
+  "require": {
+    "php": "^7.4",
+    "ext-json": "*",
+    "ext-mbstring": "*"
+  },
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "ArcanisGK\\PhpDevelopmentTool\\": "src/"
+    },
+    "files": [
+      "src/phpDevToolInitialization.php"
+    ]
+  },
+  "authors": [
+    {
+      "name": "Walter Nuñez",
+      "email": "icarosnet@gmail.com"
+    }
+  ]
+}

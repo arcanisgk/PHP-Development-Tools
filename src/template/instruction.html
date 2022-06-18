@@ -1,0 +1,258 @@
+<h1>HTTP Response Status Codes</h1>
+HTTP response status codes indicate whether a specific HTTP request has completed successfully. Responses are grouped into five classes:
+<br><br>
+
+- Informational responses (100–199),<br>
+- Satisfactory responses (200–299),<br>
+- Redirects (300–399),<br>
+- Client errors (400–499),<br>
+- and server errors (500–599).<br><br>
+
+Status codes are defined in section 10 of <a href="https://datatracker.ietf.org/doc/html/rfc2616#section-10">RFC
+    2616</a>. You can get the updated specifications in <a
+        href="https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.1">RFC
+    7231</a>.<br><br>
+
+<h3>Informative Answers</h3>
+<div style="color: #6bb86a;"><b>100 Continue</b></div>
+This tentative response indicates that everything so far is fine and that the client should continue with the
+request or ignore it if it is already finished.
+<br><br>
+<div style="color: #6bb86a;"><b>101 Switching Protocol</b></div>
+This code is sent in response to an Upgrade (en-US) request header by the client and indicates that the server
+accepts the user agent&#39;s proposed protocol change.
+<br><br>
+<div style="color: #6bb86a;"><b>102 Processing(WebDAV(en - US))</b></div>
+This code indicates that the server has received the request and is still processing it, so no response is
+available.
+<br><br>
+<div style="color: #6bb86a;"><b>103 Early Hints(en - US)</b></div>
+This status code is primarily intended to be used with the Link header, allowing the user agent to start preloading resources while the server prepares a response.
+<br><br>
+<h3>Satisfactory Answers</h3>
+- GET: The resource has been obtained and is transmitted in the body of the message.<br>
+- HEAD: Entity headers are in the body of the message.<br>
+- PUT or POST: The resource that describes the result of the action is transmitted in the body of the message.<br>
+- TRACE: The body of the message contains the request message received by the server.<br><br>
+<div style="color: #6bb86a;"><b>200 OK</b></div>
+The request has been successful.The meaning of a success varies depending on the HTTP method:<br><br>
+<div style="color: #6bb86a;"><b>201 Created</b></div>
+The request was successful and a new resource was created as a result.This is typically the response sent after a
+PUT request.<br><br>
+<div style="color: #6bb86a;"><b>202 Accepted</b></div>
+The request has been received, but has not yet been acted upon.It is a "no commitment" request, which means that
+there is no way in HTTP to send an asynchronous response indicating the result of processing the request.It is
+intended for cases where another process or server handles the request, or for batch processing.<br><br>
+<div style="color: #6bb86a;"><b>203 Non - Authoritative Information</b></div>
+The request has been completed successfully, but its content has not been obtained from the originally requested
+source, but is instead collected from a local copy or from a third party.Except this condition, 200 OK response
+should be preferred instead of this response.<br><br>
+<div style="color: #6bb86a;"><b>204 No Content(en - US)</b></div>
+The request has completed successfully but your response has no content, although headers can be useful.The user
+agent can update its cached headers for this resource with the new values.<br><br>
+<div style="color: #6bb86a;"><b>205 Reset Content(en - US)</b></div>
+The request has been completed successfully, but its response has no content and in addition, the user agent has to
+initialize the page from which the request was made, this code is useful for example for pages with forms whose
+content must be deleted after the user sends it.<br><br>
+<div style="color: #6bb86a;"><b>206 Partial Content</b></div>
+The request will partially serve the requested content.This feature is used by download tools like wget to continue
+the transfer of previously interrupted downloads, or to split a download and process the parts simultaneously.<br><br>
+<div style="color: #6bb86a;"><b>207 Multi - Status(WebDAV(en - US))</b></div>
+A Multi - State response conveys information about multiple resources in situations where multiple status codes
+might be appropriate.The body of the request is an XML message.<br><br>
+<div style="color: #6bb86a;"><b>208 Multi - Status(WebDAV(en - US))</b></div>
+The list of DAV elements has already been previously notified, so they will not be listed again.<br><br>
+<div style="color: #6bb86a;"><b>226 IM Used(HTTP Delta encoding)</b></div>
+The server has fulfilled a GET request for the resource, and the response is a representation of the result of one
+or more instance manipulations applied to the current instance.<br><br>
+<h3>Redirects</h3>
+<div style="color: #6bb86a;"><b>300 Multiple Choice(en - US)</b></div>
+This request has more than one possible response.User - Agent or the user must choose one of them.There is no
+standardized way to select one of the answers.<br><br>
+<div style="color: #6bb86a;"><b>301 Moved Permanently(en - US)</b></div>
+This response code means that the URI of the requested resource has been changed.Probably a new URI will be returned in the response.
+<br><br>
+<div style="color: #6bb86a;"><b>302 Found</b></div>
+This response code means that the resource of the requested URI has been temporarily changed.new URI changes will be
+added in the future.Therefore, the same URI must be used by the client in future requests.<br><br>
+<div style="color: #6bb86a;"><b>303 See Other(en - US)</b></div>
+The server sends this response to direct the client to a new requested resource at another address using a GET
+request.<br><br>
+<div style="color: #6bb86a;"><b>304 Not Modified</b></div>
+This is used for "caching" purposes.Indicates to the client that the response has not been modified.Then the client
+can continue to use the same version stored in its cache.<br><br>
+<div style="color: #6bb86a;"><b>305 use Proxy</b></div>
+It was defined in a previous version of the HTTP protocol specification to indicate that a requested response should
+be accessed from a proxy.It has been deprecated due to security concerns related to setting up a proxy.<br><br>
+<div style="color: #6bb86a;"><b>306 unused</b></div>
+This response code is no longer used.It is currently reserved.It was used in previous versions of the HTTP1.1
+specification.<br><br>
+<div style="color: #6bb86a;"><b>307 Temporary Redirect(en - US)</b></div>
+The server sends this response to direct the client to get the requested resource at another URI with the same
+method used in the previous request.It has the same semantics as the HTTP 302 Found response code, with the
+exception that the user agent must not change the HTTP method used: if a POST was used in the first request, another
+POST must be used in the second request.<br><br>
+<div style="color: #6bb86a;"><b>308 Permanent Redirect(en - US)</b></div>
+It means that the resource is now permanently located at another URI, specified by the Location: HTTP header
+response.It has the same semantics as the HTTP 301 Moved Permanently response code, with the exception that the user
+agent must not change the HTTP method used: if a POST was used in the first request, another POST must be used in
+the second request.<br><br>
+<h3>Client Errors</h3>
+<div style="color: #6bb86a;"><b>400 Bad Request</b></div>
+This response means that the server was unable to interpret the request due to invalid syntax.<br><br>
+<div style="color: #6bb86a;"><b>401 Unauthorized</b></div>
+Authentication is required to obtain the requested response.This is similar to 403, but in this case, authentication
+is possible.<br><br>
+<div style="color: #6bb86a;"><b>402 Payment Required</b></div>
+This response code is reserved for future use. The initial objective of creating this code was to be used in digital
+payment systems.However, it is not currently being used.<br><br>
+<div style="color: #6bb86a;"><b>403 Forbidden</b></div>
+The client does not have the necessary permissions for certain content, so the server is refusing to provide an
+appropriate response.<br><br>
+<div style="color: #6bb86a;"><b>404 Not Found</b></div>
+The server could not find the requested content.This response code is one of the most famous given its high
+occurrence on the web.<br><br>
+<div style="color: #6bb86a;"><b>405 Method Not Allowed(en - US)</b></div>
+The requested method is known to the server but has been disabled and cannot be used.The two mandatory methods, GET
+and HEAD, should never be disabled and should not return this error code.<br><br>
+<div style="color: #6bb86a;"><b>406 Not Acceptable(en - US)</b></div>
+This response is sent when the server, after applying a server - driven content negotiation, does not find any
+content following the criteria given by the user.<br><br>
+<div style="color: #6bb86a;"><b>407 Proxy Authentication Required(en - US)</b></div>
+This is similar to the 401 code, but the authentication must be done through a proxy.<br><br>
+<div style="color: #6bb86a;"><b>408 Request Timeout</b></div>
+This response is sent on an idle connection on some servers, even without any prior request from the client.It means
+that the server wants to disconnect this unused connection.This response is widely used since some browsers, like
+Chrome, Firefox 27 +, or IE9, use HTTP pre - connection mechanisms to speed up browsing.Also note that some servers
+simply disconnect the connection without sending this message.<br><br>
+<div style="color: #6bb86a;"><b>409 Conflict(en - US)</b></div>
+This response can be sent when a request conflicts with the current state of the server.<br><br>
+<div style="color: #6bb86a;"><b>410 Gone(en - US)</b></div>
+This response can be sent when the requested content has been deleted from the server.<br><br>
+<div style="color: #6bb86a;"><b>411 Length Required(en - US)</b></div>
+The server rejects the request because the Content - Length header field is not defined and the server requires it.<br>
+<br>
+<div style="color: #6bb86a;"><b>412 Precondition Failed(en - US)</b></div>
+The client has indicated pre - conditions in its headers which the server does not meet.<br><br>
+<div style="color: #6bb86a;"><b>413 Payload Too Large</b></div>
+The request entity is longer than the limits defined by the server; the server may close the connection or return a
+Retry - After header field.<br><br>
+<div style="color: #6bb86a;"><b>414 URI Too Long(en - US)</b></div>
+The URI requested by the client is longer than the server is willing to interpret.<br><br>
+<div style="color: #6bb86a;"><b>415 Unsupported Media Type(en - US)</b></div>
+The media format of the requested data is not supported by the server, so the server rejects the request.<br><br>
+<div style="color: #6bb86a;"><b>416 Requested Range Not Satisfiable(en - US)</b></div>
+The range specified by the Range header field in the request does not match; it is possible that the range is
+outside the target data size of the URI.<br><br>
+<div style="color: #6bb86a;"><b>417 Expectation Failed(en - US)</b></div>
+It means that the expectation indicated by the Requested Expect header field cannot be fulfilled by the
+server.<br><br>
+<div style="color: #6bb86a;"><b>418 I&#39;m a teapot</b></div>
+The server refuses to try to make coffee with a kettle.<br><br>
+<div style="color: #6bb86a;"><b>421 Misdirected Request</b></div>
+The request was directed to a server that is not capable of producing a response. This may be sent
+by a server that
+is not configured to produce responses for the combination of the scheme and authority that are
+included in the
+requested URI<br><br>
+<div style="color: #6bb86a;"><b>422 Unprocessable Entity (en-US) (WebDAV (en-US))</b></div>
+The request was well formed but could not be followed due to semantic errors.<br><br>
+<div style="color: #6bb86a;"><b>423 Locked (WebDAV (en-US))</b></div>
+The resource being accessed is locked.<br><br>
+<div style="color: #6bb86a;"><b>424 Failed Dependency (WebDAV (en-US))</b></div>
+The request failed due to a failure of a previous request.<br><br>
+<div style="color: #6bb86a;"><b>426 Upgrade Required (en-US)</b></div>
+The server refuses to fulfill the request using the current protocol but may be
+willing to do so after the client
+upgrades to a different protocol. The server sends an Upgrade header in a response
+to indicate the required
+protocols.<br><br>
+<div style="color: #6bb86a;"><b>428 Precondition Required (en-US)</b></div>
+The origin server requires that the request be conditional. It is intended to
+prevent &#39;missing update&#39;
+problems, where a client GETS a resource state, modifies it, and PUT it back to
+the server, while a third party has
+modified the server state, leading to a conflict.<br><br>
+<div style="color: #6bb86a;"><b>429 Too Many Requests (en-US)</b></div>
+The user has sent too many requests in a given period of time.<br><br>
+<div style="color: #6bb86a;"><b>431 Request Header Fields Too Large (en-US)</b></div>
+The server is unwilling to process the request because the header fields
+are too long. The request MAY be
+re-uploaded after reducing the size of the requested header fields.<br><br>
+<div style="color: #6bb86a;"><b>451 Unavailable For Legal Reasons
+    (en-US)</b></div>
+The user requests an illegal resource, such as a government-censored
+web page.<br><br>
+<h3>Server Errors</h3>
+<div style="color: #6bb86a;"><b>500 Internal Server Error</b></div>
+The server has encountered a situation that it does not know how
+to handle.<br><br>
+<div style="color: #6bb86a;"><b>501 Not Implemented (en-US)</b></div>
+The requested method is not supported by the server and
+cannot be handled. The only methods that servers require
+support (and therefore should not return this code) are GET
+and HEAD.<br><br>
+<div style="color: #6bb86a;"><b>502 Bad Gateway</b></div>
+This error response means that the server, while working
+as a gateway to get a response needed to handle the
+request, got an invalid response.<br><br>
+<div style="color: #6bb86a;"><b>503 Service Unavailable</b></div>
+The server is not ready to handle the request.
+Common causes could be that the server is down for
+maintenance or is
+overloaded. Note that along with this response, a
+user-friendly page explaining the problem must be
+submitted. These
+responses should be used for temporary conditions
+and the HTTP Retry-After: header should, if
+possible, contain the
+estimated time before service retrieval. The
+webmaster should also take care of the cache-related
+headers that are
+sent along with this response, as these temporary
+condition responses should usually not be in the
+cache.<br><br>
+<div style="color: #6bb86a;"><b>504 Gateway Timeout</b></div>
+This error response is given when the server is
+acting as a gateway and cannot get a response in
+time.<br><br>
+<div style="color: #6bb86a;"><b>505 HTTP Version</b></div>
+Not Supported
+The version of HTTP used in the request is
+not supported by the server.<br><br>
+<div style="color: #6bb86a;"><b>506 Variant</b></div>
+Also Negotiates (en-US)
+The server has an internal configuration
+error: transparent content negotiation
+for the request results in a
+circular reference.<br><br>
+<div style="color: #6bb86a;"><b>507
+    Insufficient Storage (en-US)</b></div>
+The server has an internal
+configuration error: the chosen
+resource variable is configured to
+engage the transparent
+content negotiation itself, and is
+therefore not a suitable endpoint
+for the negotiation process.<br><br>
+<div style="color: #6bb86a;"><b>508
+    Loop Detected (en-US) (WebDAV
+    (en-US))</b></div>
+The server detected an infinite
+loop while processing the
+request.<br><br>
+<div style="color: #6bb86a;"><b>510
+    Not Extended (en-US)</b></div>
+Additional extensions to the
+request are required for the
+server to fulfill them.<br><br>
+<div style="color: #6bb86a;">
+    <b>511 Network
+        Authentication
+        Required (en-US)</b></div>
+Status code 511
+indicates that the
+client needs to
+authenticate to gain
+access to the
+network.<br><br>
