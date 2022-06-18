@@ -1,6 +1,10 @@
 {
   "name": "arcanisgk/php-development-tool",
   "type": "library",
+  "keywords": [
+    "toolkit"
+  ],
+  "minimum-stability": "dev",
   "require": {
     "php": "^7.4",
     "ext-json": "*",
