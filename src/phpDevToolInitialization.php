@@ -1,51 +1,105 @@
 <?php
 
+/**
+ * PHP Development Tools.
+ * PHP Version required 7.4.* or higher
+ *
+ * @see https://github.com/arcanisgk/PHP-Development-Tools
+ *
+ * @author    Walter Nuñez (arcanisgk/original founder)
+ * @email     icarosnet@gmail.com
+ * @copyright 2020 - 2022 Walter Nuñez/Icaros Net S.A.
+ * @license   For the full copyright and licence information, please view the LICENSE
+ * @note      This program is distributed in the hope that it will be useful
+ *            WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ *            or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
 declare(strict_types=1);
 
+namespace ArcanisGK\PhpDevelopmentTool;
 
-use ArcanisGK\PhpDevelopmentTool\BugCatcher;
-use ArcanisGK\PhpDevelopmentTool\WebCLIDetector;
-
-function renderTemplate($template, $directive_explained)
+/**
+ * phpDevToolInitialization Class.
+ */
+class phpDevToolInitialization
 {
-    $template_reader = file_get_contents(dirname(__DIR__) . '/src/template/' . $template);
-    $instruction = str_replace("{config}", highlight_string($directive_explained, true), $template_reader);
-    echo $instruction;
-    exit();
-}
+    /**
+     * @var phpDevToolInitialization|null
+     */
 
+    private static ?phpDevToolInitialization $instance = null;
 
-if (WebCLIDetector::getInstance()->isWEB()) {
-    $dir_root = $_SERVER['DOCUMENT_ROOT'];
+    /**
+     * @return phpDevToolInitialization
+     */
 
-    $path = dirname(__DIR__) . '/src/';
+    public static function getInstance(): phpDevToolInitialization
+    {
+        if (!self::$instance instanceof self) {
+            self::$instance = new self();
+        }
 
-    $directive_reader = file_get_contents(dirname(__DIR__) . '/src/directive/php.txt');
-
-    $directive_explained = str_replace("{path}", $path, $directive_reader);
-
-    if (!file_exists($dir_root . '.htaccess')) {
-        renderTemplate('missing_file.html', $directive_explained);
+        return self::$instance;
     }
 
-    $htaccess_reader = file_get_contents($dir_root . '.htaccess');
-
-    if (strpos($htaccess_reader, 'BugCatcher') === false) {
-        renderTemplate('missing_file.html', $directive_explained);
+    /**
+     * @param $template
+     * @param $directive_explained
+     * @return void
+     */
+    private function renderTemplate($template, $directive_explained)
+    {
+        $template_reader = file_get_contents(dirname(__DIR__) . '/src/template/' . $template);
+        $instruction = str_replace("{config}", highlight_string($directive_explained, true), $template_reader);
+        echo $instruction;
+        exit();
     }
 
-    if (!isset($_SERVER['HTACCESS']) && !file_exists($dir_root . '.user.ini')) {
-        renderTemplate('unsupported_htaccess.html', '"auto_prepend_file = ' . $path . 'BugCatcher.php"');
-    }
+    /**
+     * @return void
+     */
+    public function run()
+    {
+        if (WebCLIDetector::getInstance()->isWEB()) {
+            $dir_root = $_SERVER['DOCUMENT_ROOT'];
 
-    $user_ini_reader = file_get_contents($dir_root . '.user.ini');
+            $path = dirname(__DIR__) . '/src/';
 
-    if (strpos($user_ini_reader, 'BugCatcher') === false) {
-        renderTemplate('missing_directive_user.html', '"auto_prepend_file = ' . $path . 'BugCatcher.php"');
+            $directive_reader = file_get_contents(dirname(__DIR__) . '/src/directive/php.txt');
+
+            $directive_explained = str_replace("{path}", $path, $directive_reader);
+
+            if (!file_exists($dir_root . '.htaccess')) {
+                $this->renderTemplate('missing_file.html', $directive_explained);
+            }
+
+            $htaccess_reader = file_get_contents($dir_root . '.htaccess');
+
+            if (strpos($htaccess_reader, 'BugCatcher') === false) {
+                $this->renderTemplate('missing_file.html', $directive_explained);
+            }
+
+            if (!isset($_SERVER['HTACCESS']) && !file_exists($dir_root . '.user.ini')) {
+                $this->renderTemplate('unsupported_htaccess.html', '"auto_prepend_file = ' . $path . 'BugCatcher.php"');
+            }
+
+            $user_ini_reader = file_get_contents($dir_root . '.user.ini');
+
+            if (strpos($user_ini_reader, 'BugCatcher') === false) {
+                $this->renderTemplate(
+                    'missing_directive_user.html',
+                    '"auto_prepend_file = ' . $path . 'BugCatcher.php"'
+                );
+            }
+        }
     }
 }
 
 ob_start();
+
+phpDevToolInitialization::getInstance()->run();
+
 BugCatcher::getInstance(['dir_log' => '/']);
 
 function dop($var)

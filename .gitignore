@@ -2,3 +2,5 @@
 /.idea/
 /.git/
 /composer.lock
+/*.log
+/null

@@ -1,35 +1,58 @@
 <?php
 
+/**
+ * PHP Development Tools.
+ * PHP Version required 7.4.* or higher
+ *
+ * @see https://github.com/arcanisgk/PHP-Development-Tools
+ *
+ * @author    Walter Nuñez (arcanisgk/original founder)
+ * @email     icarosnet@gmail.com
+ * @copyright 2020 - 2022 Walter Nuñez/Icaros Net S.A.
+ * @license   For the full copyright and licence information, please view the LICENSE
+ * @note      This program is distributed in the hope that it will be useful
+ *            WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ *            or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
 declare(strict_types=1);
 
 namespace ArcanisGK\PhpDevelopmentTool;
 
+/**
+ * BugCatcher Class.
+ */
 class BugCatcher
 {
-
     /**
      * @var BugCatcher|null
      */
 
     private static ?BugCatcher $instance = null;
+
     /**
      * @var string
      */
 
     private string $line_separator;
+
     /**
      * @var bool
      */
 
     private bool $display_error;
+
     /**
      * @var bool
      */
 
     private bool $to_log;
 
-    private string $dir_log;
+    /**
+     * @var string
+     */
 
+    private string $dir_log;
 
     /**
      * this class is armed automatically at the moment it is instantiated and remains active.
@@ -38,17 +61,11 @@ class BugCatcher
     public function __construct(array $data)
     {
         $this->setLineSeparator($this->detectLineSeparator());
-
         $this->setDisplayError($this->isDisplayErrors());
-
         $this->setToLog($this->isDisplayErrors());
-
         $this->setDirLog($data['dir_log']);
-
         register_shutdown_function([$this, "shutdownHandler"]);
-
         set_exception_handler([$this, "exceptionHandler"]);
-
         set_error_handler([$this, "errorHandler"]);
     }
 
@@ -114,6 +131,7 @@ class BugCatcher
     /**
      * @return string
      */
+
     public function getDirLog(): string
     {
         return $this->dir_log;
@@ -122,11 +140,11 @@ class BugCatcher
     /**
      * @param string $dir_log
      */
+
     public function setDirLog(string $dir_log): void
     {
         $this->dir_log = $dir_log;
     }
-
 
     /**
      * @return void
@@ -233,7 +251,8 @@ class BugCatcher
     {
         $trace = preg_replace("/\r|\n|\r\n/", "", $error_array['trace_msg']);
 
-        $error_smg_log = time() . ' ' . date(
+        $error_smg_log = time() . ' ' .
+            date(
                 'Y-m-d H:i:s'
             ) . ' ' . $error_array['description'] .
             ' Trace: ' . $trace . PHP_EOL;
@@ -280,8 +299,12 @@ class BugCatcher
      * @return void
      */
 
-    public function errorHandler($error_level = null, $error_desc = null, $error_file = null, $error_line = null): void
-    {
+    public function errorHandler(
+        $error_level = null,
+        $error_desc = null,
+        $error_file = null,
+        $error_line = null
+    ): void {
         $this->cleanOutput();
         $trace = array_reverse(debug_backtrace());
         array_pop($trace);

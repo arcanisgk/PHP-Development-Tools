@@ -1,20 +1,41 @@
 <?php
 
+/**
+ * PHP Development Tools.
+ * PHP Version required 7.4.* or higher
+ *
+ * @see https://github.com/arcanisgk/PHP-Development-Tools
+ *
+ * @author    Walter Nuñez (arcanisgk/original founder)
+ * @email     icarosnet@gmail.com
+ * @copyright 2020 - 2022 Walter Nuñez/Icaros Net S.A.
+ * @license   For the full copyright and licence information, please view the LICENSE
+ * @note      This program is distributed in the hope that it will be useful
+ *            WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ *            or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+declare(strict_types=1);
+
 namespace ArcanisGK\PhpDevelopmentTool;
 
+/**
+ * CliOutput Class.
+ */
 class CliOutput
 {
-
     /**
      * @var CliOutput|null
      */
 
     private static ?CliOutput $instance = null;
+
     /**
      * @var array
      */
 
     private array $cli_square;
+
     /**
      * @var string
      */
@@ -121,7 +142,8 @@ class CliOutput
             $calc_footer = $n_lines - $n_footer;
             $f_top = $draw->tl . str_repeat($draw->h, $max_len + 2) . $draw->tr;
             $f_button = $draw->bl . str_repeat($draw->h, $max_len + 2) . $draw->br;
-            $result .= ($highlight && 0 != $n_header) ? $cli_c_hf . $f_top . $cli_EOL . PHP_EOL : $cli_c_r . $f_top . $cli_EOL . PHP_EOL;
+            $result .= ($highlight && 0 != $n_header) ? $cli_c_hf . $f_top . $cli_EOL . PHP_EOL :
+                $cli_c_r . $f_top . $cli_EOL . PHP_EOL;
             foreach ($source as $line) {
                 $addEmpty = '';
                 $line_txt = '';
@@ -137,13 +159,19 @@ class CliOutput
                     $line_txt .= $cli_c_r . $draw->v . ' ' . $line . $addEmpty . ' ' . $draw->v . $cli_EOL;
                 }
                 if (0 != $n_header && $i == $n_header - 1) {
-                    $line_txt .= PHP_EOL . $cli_c_hf . $draw->ls . str_repeat(
+                    $line_txt .= PHP_EOL . $cli_c_hf . $draw->ls .
+                        str_repeat(
                             $draw->hs,
                             $max_len + 2
                         ) . $draw->rs . $cli_EOL . PHP_EOL;
                 } elseif (0 != $n_footer && $calc_footer - 1 == $i) {
-                    $line_txt .= PHP_EOL . $cli_c_r . $draw->v . str_repeat(' ', $max_len + 2) . $draw->v . $cli_EOL;
-                    $line_txt .= PHP_EOL . $cli_c_hf . $draw->ls . str_repeat(
+                    $line_txt .= PHP_EOL . $cli_c_r . $draw->v .
+                        str_repeat(
+                            ' ',
+                            $max_len + 2
+                        ) . $draw->v . $cli_EOL;
+                    $line_txt .= PHP_EOL . $cli_c_hf . $draw->ls .
+                        str_repeat(
                             $draw->hs,
                             $max_len + 2
                         ) . $draw->rs . $cli_EOL . PHP_EOL;
@@ -153,7 +181,8 @@ class CliOutput
                 $result .= $line_txt;
                 ++$i;
             }
-            $result .= ($highlight && 0 != $n_header) ? $cli_c_hf . $f_button . $cli_EOL : $cli_c_r . $f_button . $cli_EOL . PHP_EOL;
+            $result .= ($highlight && 0 != $n_header) ? $cli_c_hf . $f_button . $cli_EOL :
+                $cli_c_r . $f_button . $cli_EOL . PHP_EOL;
         }
 
         return $result;
@@ -162,6 +191,7 @@ class CliOutput
     /**
      * @return int
      */
+
     private function getWindowLimit(): int
     {
         $WidthReal = shell_exec('MODE 2> null') ?? shell_exec('tput cols');
@@ -196,10 +226,15 @@ class CliOutput
     /**
      * @return array
      */
+
     public function getCliSquare(): array
     {
         return $this->cli_square;
     }
+
+    /**
+     * @return void
+     */
 
     public function setCliSquare(): void
     {
@@ -239,6 +274,7 @@ class CliOutput
     /**
      * @return string
      */
+
     public function getRetrieveData(): string
     {
         return $this->retrieve_data;
@@ -247,10 +283,9 @@ class CliOutput
     /**
      * @param string $retrieve_data
      */
+
     public function setRetrieveData(string $retrieve_data): void
     {
         $this->retrieve_data = $retrieve_data;
     }
-
-
 }
