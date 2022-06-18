@@ -16,7 +16,8 @@
       "ArcanisGK\\PhpDevelopmentTool\\": "src/"
     },
     "files": [
-      "src/phpDevToolInitialization.php"
+      "src/Init/phpDevToolInitialization.php",
+      "src/Init/phpExposeData.php"
     ]
   },
   "authors": [

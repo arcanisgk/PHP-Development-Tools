@@ -9,7 +9,7 @@
  * @author    Walter Nuñez (arcanisgk/original founder)
  * @email     icarosnet@gmail.com
  * @copyright 2020 - 2022 Walter Nuñez/Icaros Net S.A.
- * @license   For the full copyright and licence information, please view the LICENSE
+ * @license   For the full copyright and licence information, please view the LICENCE
  * @note      This program is distributed in the hope that it will be useful
  *            WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
  *            or FITNESS FOR A PARTICULAR PURPOSE.
@@ -17,7 +17,10 @@
 
 declare(strict_types=1);
 
-namespace ArcanisGK\PhpDevelopmentTool;
+namespace ArcanisGK\PhpDevelopmentTool\Init;
+
+use ArcanisGK\PhpDevelopmentTool\BugCatcher;
+use ArcanisGK\PhpDevelopmentTool\WebCLIDetector;
 
 /**
  * phpDevToolInitialization Class.
@@ -66,7 +69,7 @@ class phpDevToolInitialization
 
             $path = dirname(__DIR__) . '/src/';
 
-            $directive_reader = file_get_contents(dirname(__DIR__) . '/src/directive/php.txt');
+            $directive_reader = file_get_contents(dirname(__DIR__) . '/../src/directive/php.txt');
 
             $directive_explained = str_replace("{path}", $path, $directive_reader);
 
@@ -102,9 +105,3 @@ phpDevToolInitialization::getInstance()->run();
 
 BugCatcher::getInstance(['dir_log' => '/']);
 
-function dop($var)
-{
-    echo '<pre>';
-    echo var_export($var);
-    echo '</pre>';
-}

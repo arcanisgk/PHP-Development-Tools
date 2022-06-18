@@ -1,0 +1,2 @@
+1655576398 2022-06-18 13:19:58 Test Trace: No backtrace data in the ExceptionHandler.
+1655576399 2022-06-18 13:19:59 Use of undefined constant wath - assumed 'wath' (this will throw an Error in a future version of PHP) Trace: No backtrace data in the ErrorHandler.

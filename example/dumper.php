@@ -19,4 +19,6 @@ declare(strict_types=1);
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
-dop(['test' => 'Hello World', 2022]);
+sd(['test' => 'Hello World', 2022]);
+
+sda(['test' => 'Hello World', 2022]);

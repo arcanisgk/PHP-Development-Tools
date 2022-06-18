@@ -4,5 +4,5 @@
 /composer.lock
 /*.log
 /null
-/.htaccess
-/.user.ini
+/example/.htaccess
+/example/.user.ini
